@@ -1,12 +1,16 @@
 'use strict'
 
+const Print = require('./lib/print')
+
 module.exports = {
-  Print: require('./lib/print'),
+  Print: Print,
+
   Plugins: {
     style: require('./lib/plugins/style'),
     date: require('./lib/plugins/date'),
     tag: require('./lib/plugins/tag')
   },
+
   Levels: {
     log: {},
 
@@ -32,5 +36,9 @@ module.exports = {
       },
       date: true
     }
+  },
+
+  new() {
+    return new Print
   }
 }
