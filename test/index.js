@@ -64,7 +64,6 @@ P.debug('Debug log visible')
 P.warn('Warn log visible')
 
 // Disable auto trim
-P.auto_trim = false
 P.log('\nLog not trimmed\n')
 P.log(P.trim('\nLog trimmed\n'))
 P.auto_trim = true
