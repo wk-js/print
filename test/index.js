@@ -1,7 +1,6 @@
 'use strict'
 
-const PrintLib = require('../index')
-const Print    = PrintLib.Print
+const { Print, Plugins, Levels } = require('../index')
 
 const P = new Print
 
@@ -15,7 +14,7 @@ P.level('debug', {
 P.debug('White log')
 
 // Test level with a plugin
-P.plugin('style', PrintLib.Plugins.style)
+P.plugin('style', Plugins.style)
 P.debug('Grey log underlined')
 
 // Test custom plugin
@@ -37,12 +36,12 @@ P.plugin('arrow', function(str, options) {
 P.debug('Grey log underlined with a green tiret')
 
 // Use preconfigured level
-P.level('warn', PrintLib.Levels.warn)
+P.level('warn', Levels.warn)
 P.warn('Yellow log')
 
 // Add more plugins
-P.plugin('date', PrintLib.Plugins.date)
-P.plugin('tag', PrintLib.Plugins.tag)
+P.plugin('date', Plugins.date)
+P.plugin('tag', Plugins.tag)
 P.warn('Yellow log with date and tag')
 
 // Update log visibility

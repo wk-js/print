@@ -36,9 +36,5 @@ module.exports = {
       },
       date: true
     }
-  },
-
-  new() {
-    return new Print
   }
 }
