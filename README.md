@@ -1,6 +1,9 @@
+## Print
+
+```js
 'use strict'
 
-const { Print, Plugins, Levels } = require('../index')
+const { Print, Plugins, Levels } = require('wk-print')
 
 const P = new Print
 
@@ -68,3 +71,4 @@ P.log('\nLog not trimmed\n')
 P.log(P.trim('\nLog trimmed\n'))
 P.auto_trim = true
 P.log('\nLog trimmed\n')
+```
