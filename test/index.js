@@ -31,6 +31,7 @@ P.level('debug', {
   arrow: { tiret: true }
 })
 P.plugin('arrow', function(str, options) {
+  // console.log(P.hex('#ffaa22')('lol'))
   return P.green(options.tiret ? '- ' : '➜ ') + str
 })
 P.debug('Grey log underlined with a green tiret')
