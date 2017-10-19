@@ -1,9 +1,11 @@
 'use strict'
 
-const Print = require('./lib/print')
+const Print  = require('./lib/print')
+const Print2 = require('./lib/print2')
 
 module.exports = {
   Print: Print,
+  Print2: Print2,
 
   Plugins: {
     style: require('./lib/plugins/style'),
