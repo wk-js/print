@@ -3,7 +3,11 @@
 ```js
 'use strict'
 
-const { Print, Plugins, Levels } = require('wk-print')
+const { Print } = require( 'wk-print/js/print' )
+const { WarnCategory } = require('wk-print/js/categories/warn')
+const { DateExtension } = require( 'wk-print/js/extensions/date' )
+const { StyleExtension } = require( 'wk-print/js/extensions/style' )
+const { TagExtension } = require( 'wk-print/js/extensions/tag' )
 
 const P = new Print
 
@@ -11,64 +15,79 @@ const P = new Print
 P.log('Hello World')
 
 // Test level
-P.level('debug', {
-  style: ['grey', 'underline']
+P.config.category({
+  name: 'debug',
+  extensions: {
+    style: { styles: ['grey', 'underline'] }
+  }
 })
-P.debug('White log')
 
 // Test level with a plugin
-P.plugin('style', Plugins.style)
+P.config.extension(StyleExtension)
 P.debug('Grey log underlined')
 
 // Test custom plugin
-P.plugin('arrow', function(str) {
-  return `➜ ` + str
+P.config.extension({
+  name: 'arrow',
+  callback: function(str) {
+    return `➜ ` + str
+  }
 })
-P.level('debug', {
-  arrow: true
+P.config.category({
+  name: 'debug',
+  extensions: {
+    arrow: true
+  }
 })
 P.debug('Grey log underlined with an arrow')
 
 // Override plugin
-P.level('debug', {
-  arrow: { tiret: true }
+P.config.category({
+  name: 'debug',
+  extensions: {
+    arrow: { tiret: true }
+  }
 })
-P.plugin('arrow', function(str, options) {
-  return P.green(options.tiret ? '- ' : '➜ ') + str
+P.config.extension({
+  name: 'arrow',
+  callback: function(str, options) {
+    // console.log(P.hex('#ffaa22')('lol'))
+    return P.green(options.tiret ? '- ' : '➜ ') + str
+  }
 })
 P.debug('Grey log underlined with a green tiret')
 
 // Use preconfigured level
-P.level('warn', Levels.warn)
+P.config.category(WarnCategory)
 P.warn('Yellow log')
 
 // Add more plugins
-P.plugin('date', Plugins.date)
-P.plugin('tag', Plugins.tag)
+P.config.extension(DateExtension)
+P.config.extension(TagExtension)
 P.warn('Yellow log with date and tag')
 
-// Update log visibility
-P.visibility('warn', false)
+// Update log display
+P.config.display('warn', false)
 P.warn('Yellow log hidden')  // Nothing printed
 
-P.visibility('warn', true)
-P.warn('Yellow log visible') // Somethin printed
+P.config.display('warn', true)
+P.warn('Yellow log display') // Somethin printed
 
 // Hide every log
-P.silent()
+P.config.silent()
 P.log('Log hidden')
 P.debug('Debug log hidden')
 P.warn('Warn log hidden')
 
 // Show every log
-P.verbose()
-P.log('Log visible')
-P.debug('Debug log visible')
-P.warn('Warn log visible')
+P.config.verbose()
+P.log('Log display')
+P.debug('Debug log display')
+P.warn('Warn log display')
 
 // Disable auto trim
 P.log('\nLog not trimmed\n')
-P.log(P.trim('\nLog trimmed\n'))
-P.auto_trim = true
+P.log(P.config.trim('\nLog trimmed\n'))
+P.config.auto_trim = true
 P.log('\nLog trimmed\n')
 ```
